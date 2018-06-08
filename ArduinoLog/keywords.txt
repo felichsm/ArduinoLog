@@ -1,0 +1,25 @@
+#######################################
+# Syntax Coloring Map ArduinoLog
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+Log			KEYWORD1
+ALog		KEYWORD1
+ArduinoLog	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+logSerial	KEYWORD2
+logSD		KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+AL_MAXBUFFER		LITERAL1
+AL_MAXFILELENGTH	LITERAL1
+AL_CARD_DETECT		LITERAL1
+AL_CHIP_SELECT		LITERAL1
