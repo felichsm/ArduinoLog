@@ -12,7 +12,7 @@
 #include <SPI.h>
 #include <SD.h>
 
-#define AL_MAXBUFFER 64
+#define AL_MAXBUFFER 32
 #define AL_MAXFILELENGTH 12
 #define AL_CARD_DETECT 9
 #define AL_CHIP_SELECT 10 //TODO:By using PIN 10 (PB2) as Chip Select. The SPI Cannot be used in Slave Mode. Change this for using Slafe mode
@@ -74,6 +74,8 @@ public:
 	 * returns true on success
 	 */
 	bool setLogFileName(char* name);
+
+	void logError();
 
 private:
 	bool initializeSD();
