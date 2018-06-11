@@ -6,15 +6,16 @@
 # Datatypes (KEYWORD1)
 #######################################
 
-Log			KEYWORD1
 ALog		KEYWORD1
 ArduinoLog	KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)
 #######################################
-logSerial	KEYWORD2
-logSD		KEYWORD2
+logSerial		KEYWORD2
+logSD			KEYWORD2
+ArduinoLog		KEYWORD2
+setLogFileName	KEYWORD2
 
 #######################################
 # Constants (LITERAL1)
