@@ -10,7 +10,8 @@
 
 #include <WString.h>
 #include <SPI.h>
-#include <SD.h>
+//#include <SD.h>
+#include <SdFat.h>
 
 #define AL_MAXBUFFER 32
 #define AL_MAXFILELENGTH 12
@@ -32,7 +33,9 @@ class ArduinoLog {
 	//char* resizedBuff = NULL;
 	bool sdAlreadyInitialized=false;
 	char logFile[AL_MAXFILELENGTH];
-	File file;
+	SdFile file;
+	SdFat SD;
+	uint8_t sdMode = O_WRITE | O_CREAT;
 
 
 public:
@@ -73,9 +76,26 @@ public:
 	 * 8.3 (eg: demofile.txt will work, longfilename.txt wont)
 	 * returns true on success
 	 */
-	bool setLogFileName(char* name);
+	bool setLogFileName(const char* name);
 
 	void logError();
+
+	bool flushSD();
+
+	/*
+	 * Options for SDmode are:
+	 * O_READ
+	 * O_RDONLY
+	 * O_WRITE
+	 * O_RDWR
+	 * O_APPEND
+	 * O_SYNC (will call sync after each write, which you may not want for performance reason)
+	 * O_TRUNC
+	 * O_AT_END
+	 * O_CREAT
+	 * O_EXCL ( If O_CREAT and O_EXCL are set, initialization will fail if the file exists)
+	 */
+	bool setSDmode(uint8_t sdMode);
 
 private:
 	bool initializeSD();

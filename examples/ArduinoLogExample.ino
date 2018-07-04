@@ -35,9 +35,17 @@ void setup()
    * Pin 9          CD (= chip detect, active high) this is used to detect if a SD card is inserted, The SDcard Adapter needs to support this
    *                In case the SDcard adapter does not support CD, use a pullup resistor on PIN 9 to do the trick 
    */
+  ALog.setLogFileName("Example.txt");
+  ALog.setSDmode(O_WRITE | O_CREAT);	//this will overwrite an existing file or create a new if nonexistent
   ALog.logSD(F("A formated String with a Number: %d\n"), 3);
-  ALog.logSD(F("Such a Long %s string that it just %s fit into the Buffer\n") ,"formatted" ,"wont");
-  ALog.logSD("Such a Long %s string that it just fits into the Buffer!\n" ,"formatted");
+  ALog.logSD(F("A %s String \n") ,"formatted");
+  ALog.logSD("A float formated Value wont work on every Arduino: %f\n" ,PI);
+  ALog.flushSD();	// In the End we write the Data to the SD
+
+  ALog.setLogFileName("Other.txt");
+  ALog.setSDmode(O_WRITE | O_CREAT | O_APPEND);	//this will NOT overwrite an existing file or create a new if nonexistent
+  ALog.logSD(F("A formated String with a Number: %d\n"), 3);
+  ALog.flushSD();
 
 }
 
