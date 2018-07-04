@@ -33,12 +33,6 @@ static const char PROGMEM errorMessage[] = "ArduinoLog: Could not Log a Message!
 ArduinoLog::ArduinoLog() {
 	strcpy(logFile,LOG_FILE_NAME);
 	sdAlreadyInitialized=false;
-#ifdef HAVE_SD
-	//Initialize the SD card
-	pinMode(AL_CARD_DETECT, INPUT);
-	pinMode(AL_CHIP_SELECT, OUTPUT);
-	//initializeSD();
-#endif
 }
 
 ArduinoLog::~ArduinoLog() {
@@ -276,12 +270,12 @@ bool ArduinoLog::flushSD(){
 }
 
 bool ArduinoLog::initializeSD(){
-	if(!digitalRead(AL_CARD_DETECT)){
+	if(!digitalRead(this->cardDetect)){
 		//No Card Detected
 		DEBUG_SD("No SD Card detected\n");
 		return false;
 	}
-	else if(!SD.begin(AL_CHIP_SELECT, SD_SCK_MHZ(50))&& !sdAlreadyInitialized){
+	else if(!SD.begin(this->chipSelect, SD_SCK_MHZ(50))&& !sdAlreadyInitialized){
 		//SD card is not Yet initialized & begin did not work
 		DEBUG_SD("Could not Initialize SD card\n");
 		return false;
@@ -333,6 +327,18 @@ bool ArduinoLog::setLogFileName(const char* name){
 	if(len > AL_MAXFILELENGTH || len < 1) return false;
 	strncpy(this->logFile, name, AL_MAXFILELENGTH);
 	this->sdAlreadyInitialized=false;
+	return true;
+}
+
+bool ArduinoLog::beginSD(uint8_t CS, uint8_t CD){
+#ifdef HAVE_SD
+	//Initialize the SD card
+	this->cardDetect = CD;
+	this->chipSelect = CS;
+	pinMode(this->cardDetect, INPUT);
+	pinMode(this->chipSelect, OUTPUT);
+	//initializeSD();
+#endif
 	return true;
 }
 

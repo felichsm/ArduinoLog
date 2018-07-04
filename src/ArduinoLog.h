@@ -30,12 +30,15 @@ class ArduinoLog {
 	char* buff_=NULL;	//Buffer to format the Data
 	char* formatbuff=NULL;	//Buffer to dynamically load data from FLASH
 	char* formatbuff_=NULL;	//Buffer to dynamically load data from FLASH
-	//char* resizedBuff = NULL;
+
 	bool sdAlreadyInitialized=false;
 	char logFile[AL_MAXFILELENGTH];
 	SdFile file;
 	SdFat SD;
 	uint8_t sdMode = O_WRITE | O_CREAT;
+
+	uint8_t cardDetect = AL_CARD_DETECT;
+	uint8_t chipSelect = AL_CHIP_SELECT;
 
 
 public:
@@ -77,6 +80,8 @@ public:
 	 * returns true on success
 	 */
 	bool setLogFileName(const char* name);
+
+	bool beginSD(uint8_t CS= AL_CHIP_SELECT, uint8_t CD = AL_CARD_DETECT);
 
 	void logError();
 
